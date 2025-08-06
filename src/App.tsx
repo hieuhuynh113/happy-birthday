@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Gift, Sparkles, Star, Heart, Wallet, Rocket, HeartPulse, Smile, PartyPopper } from 'lucide-react';
+
 import nhi1 from './assets/nhi1.jpg';
 import nhi2 from './assets/nhi2.jpg';
 import nhi3 from './assets/nhi3.jpg';
@@ -110,10 +111,18 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400">
-      <img src={nhi1} alt="Nhi 1" className="absolute top-1/2 left-8 transform -translate-y-1/2 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[-6deg] transition-transform duration-300 hover:scale-110 z-10" />
-      <img src={nhi2} alt="Nhi 2" className="absolute top-1/2 right-8 transform -translate-y-1/2 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[6deg] transition-transform duration-300 hover:scale-110 z-10" />
-      <img src={nhi3} alt="Nhi 3" className="absolute bottom-8 left-8 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[8deg] transition-transform duration-300 hover:scale-110 z-10" />
-      <img src={nhi4} alt="Nhi 4" className="absolute bottom-8 right-8 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[-8deg] transition-transform duration-300 hover:scale-110 z-10" />
+      
+      {/* Mobile Images */}
+      <img src={nhi3} alt="Nhi 3" className="absolute bottom-2 left-1/2 -translate-x-[105%] w-36 h-auto rounded-lg shadow-lg border-4 border-white rotate-[8deg] transition-transform duration-300 hover:scale-110 z-10 md:hidden" />
+      <img src={nhi4} alt="Nhi 4" className="absolute bottom-2 right-1/2 translate-x-[105%] w-36 h-auto rounded-lg shadow-lg border-4 border-white -rotate-[8deg] transition-transform duration-300 hover:scale-110 z-10 md:hidden" />
+
+      {/* Desktop Images */}
+      <div className="hidden md:block">
+        <img src={nhi1} alt="Nhi 1" className="absolute top-1/2 -translate-y-[90%] left-16 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[-15deg] transition-transform duration-300 hover:scale-110 z-10" />
+        <img src={nhi3} alt="Nhi 3" className="absolute top-1/2 -translate-y-[10%] left-28 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[8deg] transition-transform duration-300 hover:scale-110 z-10" />
+        <img src={nhi2} alt="Nhi 2" className="absolute top-1/2 -translate-y-[90%] right-16 w-48 h-auto rounded-lg shadow-lg border-4 border-white rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10" />
+        <img src={nhi4} alt="Nhi 4" className="absolute top-1/2 -translate-y-[10%] right-28 w-48 h-auto rounded-lg shadow-lg border-4 border-white -rotate-[8deg] transition-transform duration-300 hover:scale-110 z-10" />
+      </div>
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-20 h-20 bg-yellow-300 rounded-full top-10 left-10 opacity-70 animate-bounce"></div>
@@ -143,12 +152,10 @@ const App: React.FC = () => {
 
       <div className="container relative z-10 px-4 py-8 mx-auto">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-2 font-['Poppins'] drop-shadow-lg">
+          <h1 className={`text-4xl md:text-6xl font-bold text-white mb-2 font-['Poppins'] drop-shadow-lg ${stage === 'wheel' ? 'hidden md:block' : ''}`}>
             🎉 Happy Birthday Nhi! 🎉
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-8 font-['Inter']">
-            Chúc mừng sinh nhật em gái yêu quý! 💕
-          </p>
+          
         </div>
 
         {/* Gift Stage */}
@@ -166,7 +173,7 @@ const App: React.FC = () => {
                 <div className="absolute w-4 h-8 transform -translate-x-1/2 bg-yellow-400 rounded-t-full -top-2 left-1/2"></div>
                 <div className="absolute w-12 h-4 transform -translate-x-1/2 -translate-y-1 bg-yellow-400 rounded-full -top-2 left-1/2"></div>
               </div>
-              <div className="absolute transition-opacity duration-300 opacity-0 -inset-4 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl group-hover:opacity-20"></div>
+              <div className="absolute transition-opacity duration-300 opacity-0 -inset-x-4 -top-4 h-[calc(100%+1rem)] bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl group-hover:opacity-20"></div>
               <p className="text-white text-center mt-4 font-['Poppins'] font-semibold">Click để mở quà! 🎁</p>
             </div>
           </div>
