@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Gift, Sparkles, Heart, Wallet, Rocket, HeartPulse, Smile, PartyPopper, Sunrise, HeartHandshake, Castle, Home, Anchor, Gem } from 'lucide-react';
+import { 
+  Gift, Sparkles, Heart, Wallet, Rocket, HeartPulse, Smile, PartyPopper, 
+  Sunrise, HeartHandshake, Castle, Home, Anchor, Gem, LucideProps 
+} from 'lucide-react';
 
 import nhi1 from './assets/nhi1.jpg';
 import nhi2 from './assets/nhi2.jpg';
@@ -13,10 +16,20 @@ interface ConfettiPiece {
   color: string;
 }
 
+const icons: { [key: string]: React.ComponentType<LucideProps> } = {
+  Sunrise, Sparkles, HeartHandshake, Castle, Home, Anchor, Gem, Smile, Wallet, 
+  Heart, Rocket, HeartPulse, PartyPopper
+};
+
 interface Wish {
   text: string;
-  icon: React.ElementType;
+  iconName: keyof typeof icons;
 }
+
+const WishIcon = ({ name, className }: { name: keyof typeof icons, className: string }) => {
+  const LucideIcon = icons[name];
+  return LucideIcon ? <LucideIcon className={className} /> : null;
+};
 
 const App: React.FC = () => {
   const [stage, setStage] = useState<'gift' | 'wishes' | 'wheel' | 'result'>('gift');
@@ -40,23 +53,23 @@ const App: React.FC = () => {
   }, []);
 
   const mobileWishes: Wish[] = [
-    { text: "Ngày xưa em bước vào đời,", icon: Sunrise },
-    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", icon: Sparkles },
-    { text: "Từ khi ta nắm tay gần,", icon: HeartHandshake },
-    { text: "Gian nan cũng hóa thành phần mộng mơ.", icon: Castle },
-    { text: "Cơm nhà em nấu đợi chờ,", icon: Home },
-    { text: "Anh về là thấy bến bờ yên vui.", icon: Anchor },
-    { text: "Cảm ơn em – cả cuộc đời.", icon: Gem },
+    { text: "Ngày xưa em bước vào đời,", iconName: 'Sunrise' },
+    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", iconName: 'Sparkles' },
+    { text: "Từ khi ta nắm tay gần,", iconName: 'HeartHandshake' },
+    { text: "Gian nan cũng hóa thành phần mộng mơ.", iconName: 'Castle' },
+    { text: "Cơm nhà em nấu đợi chờ,", iconName: 'Home' },
+    { text: "Anh về là thấy bến bờ yên vui.", iconName: 'Anchor' },
+    { text: "Cảm ơn em – cả cuộc đời.", iconName: 'Gem' },
   ];
 
   const desktopWishes: Wish[] = [
-    { text: "Ngày xưa em bước vào đời,", icon: Smile },
-    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", icon: Wallet },
-    { text: "Từ khi ta nắm tay gần,", icon: Heart },
-    { text: "Gian nan cũng hóa thành phần mộng mơ.", icon: Rocket },
-    { text: "Cơm nhà em nấu đợi chờ,", icon: HeartPulse },
-    { text: "Anh về là thấy bến bờ yên vui.", icon: Sparkles },
-    { text: "Cảm ơn em – cả cuộc đời.", icon: PartyPopper },
+    { text: "Ngày xưa em bước vào đời,", iconName: 'Smile' },
+    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", iconName: 'Wallet' },
+    { text: "Từ khi ta nắm tay gần,", iconName: 'Heart' },
+    { text: "Gian nan cũng hóa thành phần mộng mơ.", iconName: 'Rocket' },
+    { text: "Cơm nhà em nấu đợi chờ,", iconName: 'HeartPulse' },
+    { text: "Anh về là thấy bến bờ yên vui.", iconName: 'Sparkles' },
+    { text: "Cảm ơn em – cả cuộc đời.", iconName: 'PartyPopper' },
   ];
 
   const wishes = isMobile ? mobileWishes : desktopWishes;
@@ -187,7 +200,7 @@ const App: React.FC = () => {
                   className="flex items-center w-full max-w-md gap-4 p-4 shadow-lg bg-white/20 rounded-2xl animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <wish.icon className="w-8 h-8 text-white" />
+                  <WishIcon name={wish.iconName} className="w-8 h-8 text-white" />
                   <p className="text-white text-lg md:text-xl font-semibold font-['Inter']">
                     {wish.text}
                   </p>
