@@ -125,7 +125,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 flex flex-col items-center justify-center p-4 font-sans">
+    <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden font-sans bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400">
       {/* Images */}
       {stage !== 'wheel' && (
         <>
@@ -151,7 +151,7 @@ const App: React.FC = () => {
           {confetti.map((piece) => (
             <div
               key={piece.id}
-              className="absolute rounded-full w-2 h-2"
+              className="absolute w-2 h-2 rounded-full"
               style={{
                 left: `${piece.left}%`,
                 backgroundColor: piece.color,
@@ -162,29 +162,29 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <div className="relative z-10 w-full flex flex-col items-center justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full">
         {stage === 'gift' && (
           <div className="text-center animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 font-['Poppins']">
-              Gửi Vợ Iu Của Chồng!
+              Gửi vợ iu của chồng!
             </h1>
             <p className="text-lg md:text-2xl text-white/90 mb-8 font-['Inter']">
               Chồng có mấy lời yêu thương muốn gửi đến vợ nè
             </p>
             <button onClick={handleGiftClick} className="animate-bounce">
-              <Gift className="w-32 h-32 md:w-48 md:h-48 text-white drop-shadow-2xl" />
+              <Gift className="w-32 h-32 text-white md:w-48 md:h-48 drop-shadow-2xl" />
             </button>
           </div>
         )}
 
         {stage === 'wishes' && (
-          <div className="text-center w-full max-w-lg">
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-3xl shadow-2xl">
+          <div className="w-full max-w-lg text-center">
+            <div className="p-6 shadow-2xl bg-white/10 backdrop-blur-sm rounded-3xl">
               <div className="flex flex-col items-center gap-4">
               {wishes.slice(0, visibleWishes).map((wish, index) => (
                 <div 
                   key={index} 
-                  className="flex items-center gap-4 bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-md animate-fade-in"
+                  className="flex items-center w-full max-w-md gap-4 p-4 shadow-lg bg-white/20 rounded-2xl animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <wish.icon className="w-8 h-8 text-white" />
@@ -274,7 +274,7 @@ const App: React.FC = () => {
                 Xin chúc mừng!
               </h3>
               <p className="text-lg text-gray-700 mb-2 font-['Inter']">
-                Nhi đã nhận được:
+                Vk đã nhận được:
               </p>
               <p className="text-3xl md:text-4xl font-bold text-green-600 mb-8 font-['Poppins']">
                 {selectedPrize}
@@ -283,7 +283,7 @@ const App: React.FC = () => {
                 onClick={resetGame}
                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform duration-200 shadow-lg font-['Poppins']"
               >
-                Cho xin cái mã QR đi hic hic 😥
+                Đọc số tk cho ck 😘
               </button>
             </div>
           </div>
