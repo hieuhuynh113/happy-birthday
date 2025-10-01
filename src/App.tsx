@@ -1,13 +1,26 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Gift, Sparkles, Heart, Wallet, Rocket, HeartPulse, Smile, PartyPopper, 
-  Sunrise, HeartHandshake, Castle, Home, Anchor, Gem, LucideProps 
-} from 'lucide-react';
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Gift,
+  Sparkles,
+  Heart,
+  Wallet,
+  Rocket,
+  HeartPulse,
+  Smile,
+  PartyPopper,
+  Sunrise,
+  HeartHandshake,
+  Castle,
+  Home,
+  Anchor,
+  Gem,
+  LucideProps,
+} from "lucide-react";
 
-import nhi1 from './assets/nhi1.jpg';
-import nhi2 from './assets/nhi2.jpg';
-import nhi3 from './assets/nhi3.jpg';
-import nhi4 from './assets/nhi4.jpg';
+import nhi1 from "./assets/nhi5.jpg";
+import nhi2 from "./assets/nhi2.jpg";
+import nhi3 from "./assets/nhi3.jpg";
+import nhi4 from "./assets/nhi4.jpg";
 
 interface ConfettiPiece {
   id: number;
@@ -17,8 +30,19 @@ interface ConfettiPiece {
 }
 
 const icons: { [key: string]: React.ComponentType<LucideProps> } = {
-  Sunrise, Sparkles, HeartHandshake, Castle, Home, Anchor, Gem, Smile, Wallet, 
-  Heart, Rocket, HeartPulse, PartyPopper
+  Sunrise,
+  Sparkles,
+  HeartHandshake,
+  Castle,
+  Home,
+  Anchor,
+  Gem,
+  Smile,
+  Wallet,
+  Heart,
+  Rocket,
+  HeartPulse,
+  PartyPopper,
 };
 
 interface Wish {
@@ -26,19 +50,27 @@ interface Wish {
   iconName: keyof typeof icons;
 }
 
-const WishIcon = ({ name, className }: { name: keyof typeof icons, className: string }) => {
+const WishIcon = ({
+  name,
+  className,
+}: {
+  name: keyof typeof icons;
+  className: string;
+}) => {
   const LucideIcon = icons[name];
   return LucideIcon ? <LucideIcon className={className} /> : null;
 };
 
 const App: React.FC = () => {
-  const [stage, setStage] = useState<'gift' | 'wishes' | 'wheel' | 'result'>('gift');
+  const [stage, setStage] = useState<"gift" | "wishes" | "wheel" | "result">(
+    "gift"
+  );
   const [showConfetti, setShowConfetti] = useState(false);
   const [visibleWishes, setVisibleWishes] = useState(0);
-  const [showNextStepButton, setShowNextStepButton] = useState(false);
+  {/* const [showNextStepButton, setShowNextStepButton] = useState(false); */}
   const [spinning, setSpinning] = useState(false);
   const [wheelRotation, setWheelRotation] = useState(0);
-  const [selectedPrize, setSelectedPrize] = useState('');
+  const [selectedPrize, setSelectedPrize] = useState("");
   const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -48,34 +80,51 @@ const App: React.FC = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const mobileWishes: Wish[] = [
-    { text: "Ngày xưa em bước vào đời,", iconName: 'Sunrise' },
-    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", iconName: 'Sparkles' },
-    { text: "Từ khi ta nắm tay gần,", iconName: 'HeartHandshake' },
-    { text: "Gian nan cũng hóa thành phần mộng mơ.", iconName: 'Castle' },
-    { text: "Cơm nhà em nấu đợi chờ,", iconName: 'Home' },
-    { text: "Anh về là thấy bến bờ yên vui.", iconName: 'Anchor' },
-    { text: "Cảm ơn em – cả cuộc đời.", iconName: 'Gem' },
+    {
+      text: "Chúc bé Kim Tuien có một sinh nhật thật rực rỡ 🎂",
+      iconName: "Sparkles",
+    },
+    { text: "Chúc bé iu tuổi mới sẽ luôn luôn xinh đẹp ✨", iconName: "Heart" },
+    { text: "Nhiều sức khoẻ, học thật giỏi 💪", iconName: "HeartPulse" },
+    {
+      text: "Gặp nhiều may mắn và niềm vui trong cuộc sống 🍀",
+      iconName: "Clover",
+    },
+    {
+      text: "Chúc bé iu luôn hạnh phúc bên cạnh anh bé yêu thương của mình nữa nha ❤️",
+      iconName: "HeartHandshake",
+    },
   ];
 
   const desktopWishes: Wish[] = [
-    { text: "Ngày xưa em bước vào đời,", iconName: 'Smile' },
-    { text: "Mang theo ánh mắt rạng ngời mùa xuân.", iconName: 'Wallet' },
-    { text: "Từ khi ta nắm tay gần,", iconName: 'Heart' },
-    { text: "Gian nan cũng hóa thành phần mộng mơ.", iconName: 'Rocket' },
-    { text: "Cơm nhà em nấu đợi chờ,", iconName: 'HeartPulse' },
-    { text: "Anh về là thấy bến bờ yên vui.", iconName: 'Sparkles' },
-    { text: "Cảm ơn em – cả cuộc đời.", iconName: 'PartyPopper' },
+    {
+      text: "Chúc bé Kim Tuien có một sinh nhật thật rực rỡ 🎂",
+      iconName: "Sparkles",
+    },
+    { text: "Chúc bé iu tuổi mới sẽ luôn luôn xinh đẹp ✨", iconName: "Heart" },
+    { text: "Nhiều sức khoẻ, học thật giỏi 💪", iconName: "HeartPulse" },
+    {
+      text: "Gặp nhiều may mắn và niềm vui trong cuộc sống 🍀",
+      iconName: "Clover",
+    },
+    {
+      text: "Chúc bé iu luôn hạnh phúc bên cạnh anh bé yêu thương của mình nữa nha ❤️",
+      iconName: "HeartHandshake",
+    },
   ];
 
   const wishes = isMobile ? mobileWishes : desktopWishes;
 
-  const prizes = ['10k', '20k', '30k', '40k', '50k'];
-  const colors = useMemo(() => ['#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57'], []);
+  const prizes = ["10k", "20k", "30k", "40k", "50k"];
+  const colors = useMemo(
+    () => ["#FF6B9D", "#4ECDC4", "#45B7D1", "#96CEB4", "#FECA57"],
+    []
+  );
 
   useEffect(() => {
     if (showConfetti) {
@@ -85,7 +134,7 @@ const App: React.FC = () => {
           id: i,
           left: Math.random() * 100,
           animationDelay: Math.random() * 3,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          color: colors[Math.floor(Math.random() * colors.length)],
         });
       }
       setConfetti(pieces);
@@ -94,67 +143,95 @@ const App: React.FC = () => {
 
   const handleGiftClick = () => {
     setShowConfetti(true);
-    setStage('wishes');
-    
-    wishes.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleWishes(index + 1);
-      }, (index + 1) * 1000);
-    });
+    setStage("wishes");
+    // Hiển thị tất cả câu chúc cùng lúc
+    setVisibleWishes(wishes.length);
 
-    setTimeout(() => {
+    {/* setTimeout(() => {
       setShowNextStepButton(true);
-    }, (wishes.length * 1000) + 1000);
+    }, 2000); // Đợi 2 giây trước khi hiển thị nút tiếp theo */}
   };
 
-  const handleGoToWheel = () => {
-    setStage('wheel');
+  {/* const handleGoToWheel = () => {
+    setStage("wheel");
     setShowConfetti(false);
-  };
+  }; */}
 
   const spinWheel = () => {
     if (spinning) return;
-    
+
     setSpinning(true);
     const randomIndex = Math.floor(Math.random() * prizes.length);
-    const rotation = 360 * 5 + (randomIndex * (360 / prizes.length));
-    
+    const rotation = 360 * 5 + randomIndex * (360 / prizes.length);
+
     setWheelRotation(rotation);
-    
+
     setTimeout(() => {
       setSpinning(false);
       setSelectedPrize(prizes[randomIndex]);
-      setStage('result');
+      setStage("result");
     }, 3000);
   };
 
   const resetGame = () => {
-    setStage('gift');
+    setStage("gift");
     setShowConfetti(false);
     setVisibleWishes(0);
-    setShowNextStepButton(false);
+    {/* setShowNextStepButton(false); */}
     setWheelRotation(0);
-    setSelectedPrize('');
+    setSelectedPrize("");
   };
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden font-sans bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400">
       {/* Images */}
-      {stage !== 'wheel' && (
+      {stage !== "wheel" && (
         <>
           {/* Mobile Images */}
           <div className="md:hidden">
-            <img src={nhi2} alt="Nhi 2" className="absolute top-5 left-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white -rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover" />
-            <img src={nhi4} alt="Nhi 4" className="absolute top-5 right-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover" />
-            <img src={nhi1} alt="Nhi 1" className="absolute bottom-5 left-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover" />
-            <img src={nhi3} alt="Nhi 3" className="absolute bottom-5 right-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white -rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover" />
+            <img
+              src={nhi2}
+              alt="Nhi 2"
+              className="absolute top-5 left-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white -rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover"
+            />
+            <img
+              src={nhi4}
+              alt="Nhi 4"
+              className="absolute top-5 right-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover"
+            />
+            <img
+              src={nhi1}
+              alt="Nhi 1"
+              className="absolute bottom-5 left-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover"
+            />
+            <img
+              src={nhi3}
+              alt="Nhi 3"
+              className="absolute bottom-5 right-4 w-24 h-32 rounded-lg shadow-lg border-2 border-white -rotate-[15deg] transition-transform duration-300 hover:scale-110 z-10 object-cover"
+            />
           </div>
           {/* Desktop Images */}
           <div className="hidden md:block">
-            <img src={nhi2} alt="Nhi 2" className="absolute top-16 left-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white -rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10" />
-            <img src={nhi4} alt="Nhi 4" className="absolute top-16 right-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10" />
-            <img src={nhi1} alt="Nhi 1" className="absolute bottom-16 left-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10" />
-            <img src={nhi3} alt="Nhi 3" className="absolute bottom-16 right-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white -rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10" />
+            <img
+              src={nhi2}
+              alt="Nhi 2"
+              className="absolute top-16 left-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white -rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10"
+            />
+            <img
+              src={nhi4}
+              alt="Nhi 4"
+              className="absolute top-16 right-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10"
+            />
+            <img
+              src={nhi1}
+              alt="Nhi 1"
+              className="absolute bottom-16 left-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10"
+            />
+            <img
+              src={nhi3}
+              alt="Nhi 3"
+              className="absolute bottom-16 right-32 w-48 h-auto rounded-lg shadow-2xl border-4 border-white -rotate-[10deg] transition-transform duration-300 hover:scale-110 z-10"
+            />
           </div>
         </>
       )}
@@ -176,13 +253,13 @@ const App: React.FC = () => {
       )}
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full">
-        {stage === 'gift' && (
+        {stage === "gift" && (
           <div className="text-center animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 font-['Poppins']">
-              Gửi vợ iu của chồng!
+              Gửi bé iu của anh!
             </h1>
             <p className="text-lg md:text-2xl text-white/90 mb-8 font-['Inter']">
-              Chồng có mấy lời yêu thương muốn gửi đến vợ nè
+              Hôm nay là sinh nhật của bé nên anh có mấy lời muốn gửi đến bé nè
             </p>
             <button onClick={handleGiftClick} className="animate-bounce">
               <Gift className="w-32 h-32 text-white md:w-48 md:h-48 drop-shadow-2xl" />
@@ -190,64 +267,86 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {stage === 'wishes' && (
+        {stage === "wishes" && (
           <div className="w-full max-w-lg text-center">
             <div className="p-6 shadow-2xl bg-white/10 backdrop-blur-sm rounded-3xl">
               <div className="flex flex-col items-center gap-4">
-              {wishes.slice(0, visibleWishes).map((wish, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-center w-full max-w-md gap-4 p-4 shadow-lg bg-white/20 rounded-2xl animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <WishIcon name={wish.iconName} className="w-8 h-8 text-white" />
-                  <p className="text-white text-lg md:text-xl font-semibold font-['Inter']">
-                    {wish.text}
-                  </p>
-                </div>
-              ))}
+                {wishes.slice(0, visibleWishes).map((wish, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center w-full max-w-md gap-4 p-4 shadow-lg bg-white/20 rounded-2xl animate-fade-in"
+                  >
+                    <WishIcon
+                      name={wish.iconName}
+                      className="w-8 h-8 text-white"
+                    />
+                    <p className="text-white text-lg md:text-xl font-semibold font-['Inter']">
+                      {wish.text}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {showNextStepButton && (
+            {/* {showNextStepButton && (
               <button
                 onClick={handleGoToWheel}
                 className="mt-8 bg-gradient-to-r from-green-400 to-blue-500 text-white px-8 py-4 rounded-full font-bold text-xl shadow-2xl transition-all duration-200 hover:scale-105 hover:shadow-3xl animate-fade-in font-['Poppins']"
               >
                 Đến bước nhận quà nào! ✨
               </button>
-            )}
+            )} */}
           </div>
         )}
 
-        {stage === 'wheel' && (
+        {stage === "wheel" && (
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 font-['Poppins']">
               🎰 Vòng Quay May Mắn 🎰
             </h2>
             <div className="relative inline-block">
-              <div 
+              <div
                 className="w-80 h-80 md:w-96 md:h-96 rounded-full border-8 border-white shadow-2xl relative overflow-hidden transition-transform duration-[3000ms] ease-out"
                 style={{ transform: `rotate(${wheelRotation}deg)` }}
               >
                 <div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: `conic-gradient(${prizes.map((_, index) => `${colors[index]} ${index * (360 / prizes.length)}deg, ${colors[index]} ${(index + 1) * (360 / prizes.length)}deg`).join(', ')})`
+                    background: `conic-gradient(${prizes
+                      .map(
+                        (_, index) =>
+                          `${colors[index]} ${
+                            index * (360 / prizes.length)
+                          }deg, ${colors[index]} ${
+                            (index + 1) * (360 / prizes.length)
+                          }deg`
+                      )
+                      .join(", ")})`,
                   }}
                 />
                 {prizes.map((prize, index) => {
                   const angle = (index + 0.5) * (360 / prizes.length);
                   const radius = isMobile ? 110 : 130;
-                  const x = Math.round(radius * Math.cos((angle - 90) * (Math.PI / 180)));
-                  const y = Math.round(radius * Math.sin((angle - 90) * (Math.PI / 180)));
+                  const x = Math.round(
+                    radius * Math.cos((angle - 90) * (Math.PI / 180))
+                  );
+                  const y = Math.round(
+                    radius * Math.sin((angle - 90) * (Math.PI / 180))
+                  );
                   return (
                     <div
                       key={index}
                       className="absolute top-1/2 left-1/2 font-bold text-lg md:text-xl font-['Poppins'] text-gray-800"
-                      style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${angle}deg)` }}
+                      style={{
+                        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${angle}deg)`,
+                      }}
                     >
-                      <span style={{ transform: `rotate(${-angle}deg)`, display: 'inline-block' }}>
+                      <span
+                        style={{
+                          transform: `rotate(${-angle}deg)`,
+                          display: "inline-block",
+                        }}
+                      >
                         {prize}
                       </span>
                     </div>
@@ -259,7 +358,9 @@ const App: React.FC = () => {
                     key={index}
                     className="absolute top-0 w-px origin-bottom bg-white h-1/2 left-1/2"
                     style={{
-                      transform: `translateX(-50%) rotate(${index * (360 / prizes.length)}deg)`
+                      transform: `translateX(-50%) rotate(${
+                        index * (360 / prizes.length)
+                      }deg)`,
                     }}
                   />
                 ))}
@@ -269,17 +370,18 @@ const App: React.FC = () => {
             <button
               onClick={spinWheel}
               disabled={spinning}
-              className={`mt-8 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-12 py-4 rounded-full font-bold text-xl shadow-2xl transition-all duration-200 font-['Poppins'] ${spinning 
-                  ? 'opacity-50 cursor-not-allowed' 
-                  : 'hover:scale-105 hover:shadow-3xl'
+              className={`mt-8 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-12 py-4 rounded-full font-bold text-xl shadow-2xl transition-all duration-200 font-['Poppins'] ${
+                spinning
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:scale-105 hover:shadow-3xl"
               }`}
             >
-              {spinning ? 'Đang quay...' : 'Quay ngay!'} 🎲
+              {spinning ? "Đang quay..." : "Quay ngay!"} 🎲
             </button>
           </div>
         )}
 
-        {stage === 'result' && (
+        {stage === "result" && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
             <div className="w-full max-w-md p-8 text-center transform bg-white shadow-2xl rounded-3xl animate-bounce-in">
               <div className="mb-4 text-6xl">🎉</div>
